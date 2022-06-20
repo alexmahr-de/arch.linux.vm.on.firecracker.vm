@@ -1,6 +1,10 @@
 # arch.linux.vm.on.firecracker.vm
 scripts related to run generate a arch linux VM to be run via firecracker
 
+### prerequisits
+The scripts/instructions have been created to work on an archlinux system with 
+`pacstrap` and `arch-chroot` installed. 
+
 ## What is firecracker?
 oversimplified firecracker is virtualization software 
  - comparable to [QEMU](https://en.wikipedia.org/wiki/QEMU) as a software
