@@ -21,4 +21,4 @@ oversimplified firecracker is virtualization software
 
 ## Issues tackled 
 1. instructions how to generate a archlinux that can be run in firecracker via [create.arch.linux.vm.files.md](https://github.com/alexmahr-de/arch.linux.vm.on.firecracker.vm/blob/master/create.arch.linux.vm.files.md)
-2. how to start/run the vm (for trial purposes without jailor = nonprod) [run.archlinux.vm.via.firecracker.md]{https://github.com/alexmahr-de/arch.linux.vm.on.firecracker.vm/blob/master/run.archlinux.vm.via.firecracker.md)
+2. how to start/run the vm (for trial purposes without jailor = nonprod) [run.archlinux.vm.via.firecracker.md](https://github.com/alexmahr-de/arch.linux.vm.on.firecracker.vm/blob/master/run.archlinux.vm.via.firecracker.md)
