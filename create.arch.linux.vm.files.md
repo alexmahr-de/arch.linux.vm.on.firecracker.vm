@@ -74,7 +74,7 @@ chmod u+x extract-vmlinux.sh
 # copy the kernel image file (compressed most likely bzImage) 
 sudo cp ./mountpoint/boot/vmlinuz-linux ./ 
 # adjust ownership
-sudo chown "$(whoami)" ./vmlinux-linux
+sudo chown "$(whoami)" ./vmlinuz-linux
 
 
 # extract the uncompressed linux file (an ELF file for x86 platform)
