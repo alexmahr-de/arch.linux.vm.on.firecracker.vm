@@ -32,8 +32,11 @@ sudo pacstrap -c ./mountpoint base linux bash openssh bash-completion systemd vi
 ``` bash
 # go into the newly generated arch guest vm 
 sudo arch-chroot ./mountpoint 
+```
 
-# inside the system of the new arch linux guest (vm)
+Then inside the system of the new arch linux guest (vm)
+
+``` bash
 # we need to add the vitio_mmio and ext4 kernel modules to initrd
 sed -i 's/MODULES=(/MODULES=(virtio_mmio ext4 /' /etc/mkinitcpio.conf
 
@@ -57,7 +60,9 @@ exit
 
 ``` bash
 # copy the newly created initrd
-cp ./mountpoint/boot/initramfs-linux.img ./archlinux.initrd
+sudo cp ./mountpoint/boot/initramfs-linux.img ./archlinux.initrd
+# assign file to user 
+sudo chown "$(whoami)" ./archlinux.initrd
 
 # get the script to extract the vmlinux uncompressed from the bzImage linux kernel as
 # provided by archlinux's package linux
