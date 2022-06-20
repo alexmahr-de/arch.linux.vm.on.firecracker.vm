@@ -1,6 +1,6 @@
 # Create archlinux vm files
 
-## 1. Pacstrap the archsystem to a file `archlinux.rootfs.ext4`
+### 1. Pacstrap the archsystem to a file `archlinux.rootfs.ext4`
  
 In order to run a guest vm based on archlinux we can can use [pacstrap](https://wiki.archlinux.org/title/Install_Arch_Linux_from_existing_Linux)
 
@@ -29,7 +29,7 @@ archlinux.rootfs.ext4
 pacstrap -c ./mountpoint base linux bash openssh bash-completion systemd vim tmux pv sudo
 ```
 
-## 2. arch-chroot into te system to make virtio_mmio module being added to the initrd 
+### 2. arch-chroot into te system to make virtio_mmio module being added to the initrd 
 
 ``` bash
 #go into the newly generated arch guest vm 
@@ -55,7 +55,7 @@ passwd archuser
 exit
 ```
 
-## 3. extract the initramdisk and kernel to use with firecracker
+### 3. extract the initramdisk and kernel to use with firecracker
 
 ``` bash
 #copy the newly created initrd
