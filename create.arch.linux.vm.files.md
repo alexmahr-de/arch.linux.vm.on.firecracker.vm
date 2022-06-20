@@ -50,6 +50,31 @@ useradd archuser -m -s /bin/bash
 
 # set the password fuer archuser
 passwd archuser 
+
+# leave the chroot
+exit
+```
+
+## 3. extract the initramdisk and kernel to use with firecracker
+
+``` bash
+#copy the newly created initrd
+cp ./mountpoint/boot/initramfs-linux.img ./archlinux.initrd
+
+#get the script to extract the vmlinux uncompressed from the bzImage linux kernel as
+#provided by archlinux's package linux
+curl https://raw.githubusercontent.com/torvalds/linux/master/scripts/extract-vmlinux > extract-vmlinux.sh
+
+#make it executable
+chmod u+x extract-vmlinux.sh
+
+#extract the uncompressed linux file (an ELF file for x86 platform)
+extract-vmlinux.sh ./mountpoint/boot/initramfs-linux.img > ./archlinux.vmlinux
+```
+
+### 4. cleanup / unmount
+``` bash
+umount ./mountpoint
 ```
 
 
