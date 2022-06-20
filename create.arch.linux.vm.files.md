@@ -22,17 +22,15 @@ mkdir ./mountpoint
 # mount the file
 sudo mount ./archlinux.rootfs.ext4 ./mountpoint
 
-# use pacstrap 
-archlinux.rootfs.ext4
-
-# use pacstrap to install a base system and some packages (the `-c` uses the cache of your archlinux host
-pacstrap -c ./mountpoint base linux bash openssh bash-completion systemd vim tmux pv sudo
+# use pacstrap to install a base system and some packages 
+# (the `-c` uses the cache of your archlinux host
+sudo pacstrap -c ./mountpoint base linux bash openssh bash-completion systemd vim tmux pv sudo
 ```
 
 ### 2. arch-chroot into te system to make virtio_mmio module being added to the initrd 
 
 ``` bash
-#go into the newly generated arch guest vm 
+# go into the newly generated arch guest vm 
 arch-chroot ./mountpoint 
 
 # inside the system of the new arch linux guest (vm)
@@ -58,23 +56,28 @@ exit
 ### 3. extract the initramdisk and kernel to use with firecracker
 
 ``` bash
-#copy the newly created initrd
+# copy the newly created initrd
 cp ./mountpoint/boot/initramfs-linux.img ./archlinux.initrd
 
-#get the script to extract the vmlinux uncompressed from the bzImage linux kernel as
-#provided by archlinux's package linux
+# get the script to extract the vmlinux uncompressed from the bzImage linux kernel as
+# provided by archlinux's package linux
 curl https://raw.githubusercontent.com/torvalds/linux/master/scripts/extract-vmlinux > extract-vmlinux.sh
 
-#make it executable
+# make it executable
 chmod u+x extract-vmlinux.sh
 
-#extract the uncompressed linux file (an ELF file for x86 platform)
-extract-vmlinux.sh ./mountpoint/boot/initramfs-linux.img > ./archlinux.vmlinux
+# sudo cp ./mountpoint/boot/vmlinuz-linux ./ 
+# sudo chown "$(whoami)" ./vmlinux-linux
+
+
+# extract the uncompressed linux file (an ELF file for x86 platform)
+./extract-vmlinux.sh ./vmlinux-linux > ./archlinux.vmlinux
 ```
 
 ### 4. cleanup / unmount
 ``` bash
-umount ./mountpoint
+sudo rm ./vmlinux-linux
+sudo umount ./mountpoint
 ```
 
 
