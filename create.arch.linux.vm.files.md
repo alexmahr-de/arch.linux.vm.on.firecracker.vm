@@ -71,8 +71,10 @@ curl https://raw.githubusercontent.com/torvalds/linux/master/scripts/extract-vml
 # make it executable
 chmod u+x extract-vmlinux.sh
 
-# sudo cp ./mountpoint/boot/vmlinuz-linux ./ 
-# sudo chown "$(whoami)" ./vmlinux-linux
+# copy the kernel image file (compressed most likely bzImage) 
+sudo cp ./mountpoint/boot/vmlinuz-linux ./ 
+# adjust ownership
+sudo chown "$(whoami)" ./vmlinux-linux
 
 
 # extract the uncompressed linux file (an ELF file for x86 platform)
