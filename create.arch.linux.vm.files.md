@@ -83,7 +83,7 @@ sudo chown "$(whoami)" ./vmlinuz-linux
 
 ### 4. cleanup / unmount
 ``` bash
-sudo rm ./vmlinux-linux
+sudo rm ./vmlinuz-linux
 sudo umount ./mountpoint
 ```
 
