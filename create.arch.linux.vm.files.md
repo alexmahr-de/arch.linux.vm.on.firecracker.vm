@@ -84,7 +84,9 @@ sudo chown "$(whoami)" ./vmlinuz-linux
 ### 4. cleanup / unmount
 ``` bash
 sudo rm ./vmlinuz-linux
+rm ./extract-vmlinux.sh
 sudo umount ./mountpoint
+rmdir ./mountpoint
 ```
 
 
