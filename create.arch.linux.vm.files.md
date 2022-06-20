@@ -78,7 +78,7 @@ sudo chown "$(whoami)" ./vmlinuz-linux
 
 
 # extract the uncompressed linux file (an ELF file for x86 platform)
-./extract-vmlinux.sh ./vmlinux-linux > ./archlinux.vmlinux
+./extract-vmlinux.sh ./vmlinuz-linux > ./archlinux.vmlinux
 ```
 
 ### 4. cleanup / unmount
