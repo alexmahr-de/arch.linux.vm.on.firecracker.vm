@@ -34,7 +34,7 @@ sudo pacstrap -c ./mountpoint base linux bash openssh bash-completion systemd vi
 sudo arch-chroot ./mountpoint 
 ```
 
-Then inside the system of the new arch linux guest (vm)
+Then **inside the system** of the new arch linux guest (vm)
 
 ``` bash
 # we need to add the vitio_mmio and ext4 kernel modules to initrd
