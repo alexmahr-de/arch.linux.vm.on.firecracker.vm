@@ -60,4 +60,37 @@ sudo mount ./archlinux.rootfs.ext4 ./mountpoint
 # (the `-c` uses the cache of your archlinux host
 sudo pacstrap -c ./mountpoint base linux bash openssh bash-completion systemd vim tmux pv sudo
 
+sudo tee ./mountpoint/root/setup.sh << 'EOF'
+#!/bin/bash
+set -x
+
+# disable the fallback initrd of arch
+systemctl enable multi-user.target
+sed -i 's/^PRESETS=(.*/PRESETS=('"'"'default'"'"')/' /etc/mkinitcpio.d/linux.preset
+
+# we need to add the vitio_mmio and ext4 kernel modules to initrd
+sed -i 's/MODULES=(/MODULES=(virtio_mmio ext4 /' /etc/mkinitcpio.conf
+
+#change the default target to not be graphical - its a server no GUI
+systemctl enable multi-user.target 2>/dev/null
+systemctl set-default multi-user.target
+
+# then we will update the initrd
+mkinitcpio -P
+
+# set password for root in generate a user
+passwd 
+
+# optionally create new user
+useradd archuser -m -s /bin/bash
+
+# set the password fuer archuser
+passwd archuser 
+
+# leave the chroot
+exit
+EOF
+
+# go into the newly generated arch guest vm 
+sudo arch-chroot ./mountpoint /bin/bash /root/setup.sh
 
