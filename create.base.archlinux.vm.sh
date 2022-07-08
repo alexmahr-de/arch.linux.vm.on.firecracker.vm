@@ -58,7 +58,7 @@ sudo mount ./archlinux.rootfs.ext4 ./mountpoint
 
 # use pacstrap to install a base system and some packages 
 # (the `-c` uses the cache of your archlinux host
-sudo pacstrap -c ./mountpoint base linux bash openssh bash-completion systemd vim tmux pv sudo
+sudo pacstrap -c ./mountpoint base linux bash openssh bash-completion systemd vim tmux pv dhclient sudo
 
 sudo tee ./mountpoint/root/setup.sh << 'EOF'
 #!/bin/bash
