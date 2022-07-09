@@ -14,6 +14,12 @@ usage() {
    fail "usage: $SCRIPTNAME <output directory> [VM disk size in GiB] [VM RAM size in MiB]" 
 }
 
+
+cleanup() {
+   sudo umount ./mountpoint;
+}
+trap cleanup EXIT
+
 VM_OUTPUT_DIR="${1:-}"
 VM_DISK_GB="${2:-20}"
 VM_RAM_MB="${3:-1024}"
@@ -53,8 +59,7 @@ mkfs.ext4 "$ROOTFS"
 # let us have a mountpoint
 mkdir ./mountpoint
 
-# mount the file
-sudo mount ./archlinux.rootfs.ext4 ./mountpoint
+sudo mount ./${ROOTFS} ./mountpoint
 
 # use pacstrap to install a base system and some packages 
 # (the `-c` uses the cache of your archlinux host
@@ -82,7 +87,7 @@ mkinitcpio -P
 passwd 
 
 # optionally create new user
-useradd archuser -m -s /bin/bash
+useradd -G wheel -m -s /bin/bash archuser
 
 # set the password fuer archuser
 passwd archuser 
@@ -93,4 +98,6 @@ EOF
 
 # go into the newly generated arch guest vm 
 sudo arch-chroot ./mountpoint /bin/bash /root/setup.sh
+
+
 
