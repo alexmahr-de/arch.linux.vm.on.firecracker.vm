@@ -102,12 +102,14 @@ sudo chown "$(whoami)" "$INITRD"
 ./extract-vmlinux.sh  vmlinuz-linux > ./"$KERNEL"
 rm vmlinuz-linux
 
-cp "$CONFIGTEMPLATE" "$CONFIG"
+test -f "$CONFIG" || {
+    cp "$CONFIGTEMPLATE" "$CONFIG"
 
-for VAR in KERNEL ROOTFS INITRD VM_RAM_MB
-do 
-    sed -i 's/{'"$VAR"'}/'"${!VAR}"'/' "$CONFIG"
-done
+    for VAR in KERNEL ROOTFS INITRD VM_RAM_MB
+    do 
+        sed -i 's/{'"$VAR"'}/'"${!VAR}"'/' "$CONFIG"
+    done
+}
 
 # unmount the archlinux guest ext4 fs
 sudo umount ./mountpoint
