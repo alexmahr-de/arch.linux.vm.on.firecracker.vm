@@ -153,7 +153,7 @@ EOF
     # run the vm in firecracker unsafely (as it is not using jailer)
     echo "apisocket $APISOCKET"
     (
-    rm output;
+    test -e output && rm output;
     mkfifo output
     ./firecracker --api-sock "$APISOCKET" --config-file "$CONFIG" &>output &
     sudo bash -c "cat output | tee output2; 
