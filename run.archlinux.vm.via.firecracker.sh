@@ -111,6 +111,19 @@ test -f "$CONFIG" || {
     done
 }
 
+
+NEXTTAPNAME=tap.arch.cp
+IPADDRESS=10.10.2.1
+NIC=wlan0
+sudo ip tuntap add "$NEXTTAPNAME" mode tap
+sudo ip addr add "$IPADDRESS"/24 dev "$NEXTTAPNAME" 
+sudo ip link set "$NEXTTAPNAME" up
+sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+sudo iptables -t nat -A POSTROUTING -o "$NIC" -j MASQUERADE
+sudo iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i "$NEXTTAPNAME" -o "$NIC" -j ACCEPT
+
+
 # unmount the archlinux guest ext4 fs
 sudo umount ./mountpoint
 
@@ -119,5 +132,5 @@ test -e "$APISOCKET" && rm "$APISOCKET"
 
 # run the vm in firecracker unsafely (as it is not using jailer)
 ./firecracker --api-sock "$APISOCKET" --config-file "$CONFIG"
-
+sudo ip tuntap del "$NEXTTAPNAME" mode tap 
 

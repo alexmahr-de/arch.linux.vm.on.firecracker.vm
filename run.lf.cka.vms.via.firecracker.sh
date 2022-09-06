@@ -22,7 +22,7 @@ usage() {
 
 cleanup() {
    test -f vmlinuz-linux && rm vmlinuz-linux
-   test -n "{APISOCKET:-}" && test -e "$APISOCKET" && rm "$APISOCKET"
+   test -n "${APISOCKET:-}" && test -e "$APISOCKET" && rm "$APISOCKET"
    sudo umount ./mountpoint || true
 }
 
@@ -158,8 +158,8 @@ EOF
     ./firecracker --api-sock "$APISOCKET" --config-file "$CONFIG" &>output &
     sudo bash -c "cat output | tee output2; 
     kill $(cat "$DHCPD_PIDFILE")
-    rm "$DHCPD_PIDFILE"
-    rm "$DHCPD_LEASEFILE"
+    rm "$DHCPD_PIDFILE" || true 
+    rm "$DHCPD_LEASEFILE" || true
     sudo ip tuntap del "$NEXTTAPNAME" mode tap 
     " &
     ) &
